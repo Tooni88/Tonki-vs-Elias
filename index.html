@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Toni vs Elias Tracker</title>
+  <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00c6ff">
+</head>
+
+<body>
+
+<div class="app">
+  <h1>☀️ Lead Tracker</h1>
+
+  <div class="players">
+    <div class="card">
+      <h2>Toni</h2>
+      <div class="score" id="toniScore">0</div>
+      <div class="streak">🔥 Streak: <span id="toniStreak">0</span></div>
+      <button onclick="addPoint('toni')">+ Point</button>
+    </div>
+
+    <div class="card">
+      <h2>Elias</h2>
+      <div class="score" id="eliasScore">0</div>
+      <div class="streak">🔥 Streak: <span id="eliasStreak">0</span></div>
+      <button onclick="addPoint('elias')">+ Point</button>
+    </div>
+  </div>
+
+  <div class="leader" id="leader">Loading...</div>
+
+  <button class="reset" onclick="resetAll()">Reset All</button>
+</div>
+
+<script src="app.js"></script>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js");
+  }
+</script>
+</body>
+</html>
