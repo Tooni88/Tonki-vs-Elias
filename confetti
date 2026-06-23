@@ -1,0 +1,100 @@
+let data = {
+  toniScore: 0,
+  eliasScore: 0,
+  toniStreak: 0,
+  eliasStreak: 0,
+  toniWins: 0,
+  eliasWins: 0,
+  lastLeader: null
+};
+
+function loadData() {
+  const saved = localStorage.getItem("trackerData");
+  if (saved) data = JSON.parse(saved);
+}
+
+function saveData() {
+  localStorage.setItem("trackerData", JSON.stringify(data));
+}
+
+function addPoint(player) {
+  if (player === "toni") data.toniScore++;
+  else data.eliasScore++;
+
+  updateStreaks();
+  checkLeaderChange();
+  saveData();
+  updateUI();
+}
+
+function updateStreaks() {
+  if (data.toniScore > data.eliasScore) {
+    data.toniStreak++;
+    data.eliasStreak = 0;
+  } else if (data.eliasScore > data.toniScore) {
+    data.eliasStreak++;
+    data.toniStreak = 0;
+  }
+}
+
+function checkLeaderChange() {
+  let currentLeader =
+    data.toniScore > data.eliasScore ? "toni" :
+    data.eliasScore > data.toniScore ? "elias" :
+    null;
+
+  if (currentLeader && data.lastLeader && currentLeader !== data.lastLeader) {
+    if (currentLeader === "toni") data.toniWins++;
+    if (currentLeader === "elias") data.eliasWins++;
+
+    launchConfetti();
+  }
+
+  data.lastLeader = currentLeader;
+}
+
+function updateUI() {
+  document.getElementById("toniScore").textContent = data.toniScore;
+  document.getElementById("eliasScore").textContent = data.eliasScore;
+
+  document.getElementById("toniStreak").textContent = data.toniStreak;
+  document.getElementById("eliasStreak").textContent = data.eliasStreak;
+
+  document.getElementById("leader").textContent =
+    data.toniScore > data.eliasScore ? "🏆 Toni leads" :
+    data.eliasScore > data.toniScore ? "🏆 Elias leads" :
+    "⚖️ Tie";
+
+  document.getElementById("toniWins").textContent = data.toniWins;
+  document.getElementById("eliasWins").textContent = data.eliasWins;
+}
+
+function resetAll() {
+  data.toniScore = 0;
+  data.eliasScore = 0;
+  data.toniStreak = 0;
+  data.eliasStreak = 0;
+
+  saveData();
+  updateUI();
+}
+
+function launchConfetti() {
+  for (let i = 0; i < 80; i++) {
+    const div = document.createElement("div");
+    div.style.position = "fixed";
+    div.style.left = Math.random() * 100 + "vw";
+    div.style.top = "-10px";
+    div.style.width = "6px";
+    div.style.height = "6px";
+    div.style.background = ["#fff", "#ff0", "#0ff", "#f0f"][Math.floor(Math.random()*4)];
+    div.style.animation = "fall 2s linear";
+    document.body.appendChild(div);
+
+    setTimeout(() => div.remove(), 2000);
+  }
+}
+
+// start
+loadData();
+updateUI();
