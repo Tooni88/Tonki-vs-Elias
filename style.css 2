@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #00c6ff, #0072ff);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.app {
+  width: 350px;
+  text-align: center;
+  background: rgba(255,255,255,0.12);
+  padding: 25px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.players {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.card {
+  width: 45%;
+  background: rgba(255,255,255,0.1);
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.score {
+  font-size: 40px;
+  margin: 10px 0;
+}
+
+button {
+  margin-top: 8px;
+  padding: 6px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  background: #ffcc00;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.leader {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffe600;
+}
+
+.reset {
+  margin-top: 15px;
+  background: rgba(255,0,0,0.6);
+  color: white;
+}
